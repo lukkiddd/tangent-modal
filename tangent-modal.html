@@ -1,0 +1,231 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+
+<!--
+`tangent-modal`
+
+
+@demo demo/index.html
+-->
+
+<dom-module id="tangent-modal">
+  <template>
+    <style>
+      :host {
+        --primary-color: #009cff;
+      }
+      .tg-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;  
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff;
+        z-index: 100;
+        color: #3c4858;
+      }
+      .tg-modal.show {
+        animation-name: fadeIn;
+        animation-duration: .3s;
+        animation-timing-function: linear;
+      }
+      .tg-modal.show .-wrapper {
+        animation-name: zoomIn;
+        animation-duration: .4s;
+        animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+      }
+      .tg-modal.show .-wrapper .-title-wrapper {
+        animation-name: fadeDown;
+        animation-duration: .7s;
+        animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1)
+      }
+      .tg-modal.hide {
+        animation-name: fadeOut;
+        animation-duration: .2s;
+        animation-timing-function: linear;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+      }
+      .tg-modal.hide .-wrapper {
+        animation-name: zoomOut;
+        animation-duration: 5s;
+        animation-delay: .1s;
+        animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+      }
+      .tg-modal.hide .-wrapper .-title-wrapper {
+        animation-name: fadeUp;
+        animation-duration: 1s;
+        animation-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+      }
+      
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
+        }
+        99% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 0;
+          display: none;
+          z-index: -1;
+        }
+      }
+      @keyframes zoomIn {
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      @keyframes zoomOut {
+        0% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(0);
+        }
+      }
+      @keyframes fadeDown {
+        0% {
+          opacity: 0;
+          transform: translateY(-50px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(none);
+        }
+      }
+      @keyframes fadeUp {
+        0% {
+          opacity: 1;
+          transform: translateY(none);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-100%);
+        }
+      }
+      .-wrapper {
+        padding: 40px 10px;
+        min-height: 300px;
+        width: 50vw;
+        height: auto;
+        min-width: 200px;
+        max-width: 400px;
+        border-radius: 5px;
+        flex-direction: column;
+        position: relative;
+        margin: 10px;
+      }
+      .-close {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        font-size: 20px;
+        color: #8492a6;
+        cursor: pointer;
+        padding: 10px;
+        background-color: #e5e9f2;
+        border-radius: 50%;
+        -webkit-transition: background-color,color .2s linear;
+        -moz-transition: background-color,color .2s linear;
+        -ms-transition: background-color,color .2s linear;
+        -o-transition: background-color,color .2s linear;
+        transition: background-color,color .2s linear;
+      }
+      .-close:hover {
+        background-color: var(--primary-color);
+        color: #ffffff;
+      }
+      .-title-wrapper {
+        text-align: center;
+      }
+      .-title {
+        font-size: 26px;
+        font-weight: 500;
+      }
+      .-subtitle {
+        font-size: 14px;
+        font-weight: 300;
+        color: #91a0b3;
+      }
+      .-content {
+        margin-top: 20px;
+        width: 100%;
+      }
+    </style>
+    <div class$="[[tgModalClass]]">
+      <div on-click="_close" class="-close">
+        <iron-icon icon="close"></iron-icon>
+      </div>
+      <div class="-wrapper animated zoomIn">
+        <div class="-title-wrapper">
+          <div class="-title">
+            <content select=".title"></content>
+          </div>
+          <div class="-subtitle">
+            <content select=".subtitle"></content>
+          </div>
+        </div>
+        <div class="-content">
+          <content select=".content"></content>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'tangent-modal',
+
+      properties: {
+        active: {
+          type: Boolean,
+          value: false,
+          observer: '_showModalChanged'
+        },
+        tgModalClass: {
+          type: String,
+          value: 'tg-modal hide',
+        }
+      },
+      _close: function () {
+        this.active = false;
+        console.log(this.tgModalClass);
+      },
+      _showModalChanged: function () {
+        if(this.active) {
+          this.tgModalClass = 'tg-modal show';
+        } else {
+          this.tgModalClass = 'tg-modal hide';
+        }
+      },
+    });
+  </script>
+</dom-module>
