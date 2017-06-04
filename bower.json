@@ -3,7 +3,6 @@
   "main": "tangent-modal.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.9.0",
-    "paper-checkbox": "^2.0.0",
     "iron-icon": "^2.0.0"
   },
   "devDependencies": {
