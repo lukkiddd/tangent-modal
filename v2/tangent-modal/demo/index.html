@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>tangent-modal demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../tangent-modal.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+      <style>
+        :focus {
+          outline: 0;
+        }
+        .input input {
+          padding: 10px 20px;
+          border-radius:5px;
+          border: 1px solid #dddddd;
+          font-size: 16px;
+          box-sizing: border-box;
+          width: 100%;
+          color: #3c4858;
+          margin-bottom: 10px;
+        }
+        .input input:active,
+        .input input:focus {
+          border-color: #009cff;
+        }
+        .button {
+          width: 100%;
+          padding: 13px 20px;
+          font-weight: 300;
+          box-sizing: border-box;
+          border-radius: 5px;
+          text-align: center;
+          cursor: pointer;
+          background-color: #e5e9f2;
+          transition: background-color .2s linear;
+        }
+        .button.button-primary {
+          background-color :#009cff;
+          color: #ffffff;
+        }
+        .button.button-primary:hover {
+          background-color: #0079c5;
+        }
+        .-toggleModalButton {
+          padding: 10px 20px;
+          display: inline-block;
+          border-radius: 3px;
+          background-color: #e5e9f2;
+          color: #8492a6;
+          cursor: pointer;
+          -webkit-transition: background-color,color .2s linear;
+          -moz-transition: background-color,color .2s linear;
+          -ms-transition: background-color,color .2s linear;
+          -o-transition: background-color,color .2s linear;
+          transition: background-color,color .2s linear;
+        }
+        .-toggleModalButton:hover {
+          background-color: #009cff;
+          color: #ffffff;
+        }
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+
+      <h3>Basic tangent-modal demo</h3>
+      <demo-snippet>
+        <template>
+          <div id="basic-button" class="-toggleModalButton">Open</div>
+
+          <tangent-modal id="basic-modal">
+            <div slot="title">
+              Tangent modal basic
+            </div>
+            <div slot="content">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem inventore voluptatibus, quis dolore fugit odit amet modi, sequi possimus eius accusantium omnis culpa repellendus rem, facilis asperiores consequatur suscipit tenetur.
+            </div>
+          </tangent-modal>
+
+          <script>
+            (function () {
+              var button = document.getElementById('basic-button'),
+                  modal = document.getElementById('basic-modal');
+              button.addEventListener('click', function() {
+                modal.active = true;
+              });
+            })();
+          </script>
+
+        </template>
+      </demo-snippet>
+
+      <h3>Modal with subtitle</h3>
+      <demo-snippet>
+        <template>
+          <div id="subtitle-button" class="-toggleModalButton">Open</div>
+
+          <tangent-modal id="subtitle-modal">
+            <div slot="title">
+              Modal with subtitle
+            </div>
+            <div slot="subtitle">
+              Here's subtitle
+            </div>
+            <div slot="content">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem inventore voluptatibus, quis dolore fugit odit amet modi, sequi possimus eius accusantium omnis culpa repellendus rem, facilis asperiores consequatur suscipit tenetur.
+            </div>
+          </tangent-modal>
+
+          <script>
+            (function () {
+              var button = document.getElementById('subtitle-button'),
+                  modal = document.getElementById('subtitle-modal');
+              button.addEventListener('click', function() {
+                modal.active = true;
+              });
+            })();
+          </script>
+        </template>
+      </demo-snippet>
+
+      <h3>Tangent Modal with form</h3>
+      <demo-snippet>
+        <template>
+          <div id="form-button" class="-toggleModalButton">Open</div>
+
+          <tangent-modal id="form-modal">
+            <div slot="title">
+              Good morning everyone!
+            </div>
+            <div slot="subtitle">
+              Welcome back to tangent-modal
+            </div>
+            <div slot="content">
+              <div class="input">
+                <input type="email" placeholder="Email">
+              </div>
+              <div class="input">
+                <input type="password" placeholder="Password">
+              </div>
+              <div class="button button-primary">
+                Submit
+              </div>
+            </div>
+          </tangent-modal>
+
+          <script>
+            (function () {
+              var button = document.getElementById('form-button'),
+                  modal = document.getElementById('form-modal');
+              button.addEventListener('click', function() {
+                modal.active = true;
+              });
+            })();
+          </script>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

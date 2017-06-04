@@ -1,12 +1,7 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 
-<!--
-`tangent-modal`
-
-
-@demo demo/index.html
--->
 
 <dom-module id="tangent-modal">
   <template>
@@ -186,46 +181,51 @@
       <div class="-wrapper animated zoomIn">
         <div class="-title-wrapper">
           <div class="-title">
-            <content select=".title"></content>
+            <slot name="title"></slot>
           </div>
           <div class="-subtitle">
-            <content select=".subtitle"></content>
+            <slot name="subtitle"></slot>
           </div>
         </div>
         <div class="-content">
-          <content select=".content"></content>
+          <slot name="content"></slot>
         </div>
       </div>
     </div>
   </template>
 
   <script>
-    Polymer({
-
-      is: 'tangent-modal',
-
-      properties: {
-        active: {
-          type: Boolean,
-          value: false,
-          observer: '_showModalChanged'
-        },
-        tgModalClass: {
-          type: String,
-          value: 'tg-modal hide',
+    /**
+     * `tangent-modal`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class TangentModal extends Polymer.Element {
+      static get is() { return 'tangent-modal'; }
+      static get properties() {
+        return {
+          active: {
+            type: Boolean,
+            value: false,
+            observer: '_showModalChanged'
+          },
+          tgModalClass: {
+            type: String,
+            value: 'tg-modal hide',
+          },
         }
-      },
-      _close: function () {
+      }
+      _close() {
         this.active = false;
-        console.log(this.tgModalClass);
-      },
-      _showModalChanged: function () {
-        if(this.active) {
-          this.tgModalClass = 'tg-modal show';
-        } else {
-          this.tgModalClass = 'tg-modal hide';
-        }
-      },
-    });
+      }
+      _showModalChanged() {
+        this.tgModalClass = (this.active) ? 'tg-modal show': 'tg-modal hide';
+      }
+    }
+
+    window.customElements.define(TangentModal.is, TangentModal);
   </script>
 </dom-module>
