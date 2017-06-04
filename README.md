@@ -12,7 +12,7 @@ $ polymer serve
 ```
 
 ## Demo
-![image](https://github.com/lukkiddd/tangent-modal/blob/master/demo/demo-gif.gif?raw=true)
+![image](https://github.com/lukkiddd/tangent-modal/blob/master/v1/tangent-modal/demo/demo-gif.gif?raw=true)
 
 ## How to use
 ```html
